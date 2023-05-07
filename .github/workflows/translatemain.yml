@@ -1,0 +1,48 @@
+const getStr = () => {
+  const query = document
+    .getElementsByClassName("transcript-scroller-child")[0]
+    .getElementsByTagName("span")[0]
+    .innerText.split("\n\n");
+
+  return query[query.length - 1];
+};
+
+let tmp = getStr();
+
+const check = () => {
+  const query = getStr();
+  if (query !== tmp && query !== "") {
+    tmp = query;
+    translation(query);
+  }
+};
+
+setInterval(check, 1000);
+
+const translation = (q) => {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    q,
+    source: "en",
+    target: "zh-tw",
+    format: "text",
+  });
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  fetch(
+    "https://translation.googleapis.com/language/translate/v2?key= 🗝️ API KEY 🗝️ ",
+    requestOptions
+  )
+    .then((response) => response.text())
+    .then((result) =>
+      console.log(
+        " Yoaka🦑 : " +
+          JSON.par
